@@ -1,0 +1,75 @@
+@import "../../assets";
+
+@media screen {
+    .container {
+        @include clearfix;
+
+        @include breakpoint($ipad-p) {
+            min-height: 25px;
+            padding: 0;
+            border-bottom: 1px solid $color-top-bar-border-bottom;
+            box-shadow: 0 -3px 20px 1px $color-top-bar-box-shadow;
+        }
+
+        display: flex;
+        flex-wrap: wrap;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 25px;
+        padding: 0 5px;
+
+        background-color: $color-top-bar-background;
+        z-index: 1000;
+    }
+
+    .logo {
+        @include breakpoint($ipad-p) {
+            width: 100%;
+            margin-top: 2px;
+        }
+
+        min-height: 25px;
+        display: flex;
+    }
+
+    .menu_button {
+        display: none;
+
+        @include breakpoint($ipad-p) {
+            display: block;
+            width: 25px;
+            height: 25px;
+            margin-left: auto;
+        }
+    }
+
+
+    .navigation {
+        @include breakpoint($ipad-p) {
+            display: none;
+            min-width: 100%;
+            height: auto;
+            margin: 10px 0;
+
+            @include mod("is_open") {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        display: flex;
+        flex-direction: row;
+        height: 25px;
+
+    }
+}
+
+@media print{
+    .container {
+        display: none;
+    }
+}
+

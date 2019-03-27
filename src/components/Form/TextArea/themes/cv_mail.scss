@@ -1,0 +1,27 @@
+@include element("container", "cv_mail") {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+@include element("field_container", "cv_mail") {
+    display: block;
+    position: relative;
+    padding: 10px 0;
+    width: 100%;
+    min-height: 8 * 24px;
+}
+
+@include element("field", "cv_mail") {
+    width: 100%;
+    min-height: 8 * 24px;
+    padding: 0 20px;
+    position: absolute;
+    outline: none;
+    font-family: $font-open-sans;
+    font-size: 20px;
+    line-height: 24px;
+    overflow: auto;
+    resize: none;
+}

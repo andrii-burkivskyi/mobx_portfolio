@@ -1,0 +1,64 @@
+@include element("button_container", "cv_link") {
+    margin: 5px 0;
+    padding-left: 20px;
+
+    @include mod("is_disabled") {
+        cursor: not-allowed;
+    }
+}
+
+@include element("button", "cv_link") {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    @include mod(is_disabled) {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+@include element("text_container", "cv_link") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@include element("text", "cv_link") {
+    margin-left: 15px;
+
+    transition: background-size .2s;
+
+    background-size: 0% 2px;
+
+    font-family: $font-open-sans;
+    font-size: 12px;
+    font-weight: 100;
+    line-height: 32px;
+
+    &:hover {
+        background-repeat: no-repeat;
+        background-position-y: calc(100% - 5px);
+        background-size: 100% 2px;
+    }
+
+    @include mod("color", "white") {
+        color: $color-cv-text-main;
+
+        &:hover {
+            background-image: linear-gradient(0deg, $color-cv-text-main 0%, $color-cv-text-main 100%);
+        }
+    }
+
+}
+
+@include element("counter", "cv_link") {}
+
+@include element("icon", "cv_link") {
+    width: 32px;
+    height: 32px;
+
+    @include mod("color", "white") {
+        fill: $color-cv-text-main;
+    }
+}

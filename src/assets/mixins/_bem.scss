@@ -1,0 +1,25 @@
+@mixin mod($mod_key, $mod_value: false) {
+  @if ($mod_value) {
+    &--#{$mod_key}-#{$mod_value} {
+      @content;
+    }
+  }
+  @else {
+    &--#{$mod_key} {
+      @content;
+    }
+  }
+}
+
+@mixin element($element, $theme: false) {
+  .#{$element} {
+    @if ($theme) {
+      &--theme-#{$theme}#{&} {
+        @content;
+      }
+    }
+    @else {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@include element("button_container", "only_icon") {
+    @include mod("is_disabled") {
+        cursor: not-allowed;
+    }
+}
+
+@include element("button", "only_icon") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mod("size", "small") {
+        width: 40px;
+        height: 40px;
+    }
+
+    @include mod("size", "normal") {
+        width: 48px;
+        height: 48px;
+    }
+
+    @include mod("is_disabled") {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+@include element("text_container", "only_icon") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@include element("text", "only_icon") {
+    display: none;
+}
+
+@include element("counter", "only_icon") {
+    display: none;
+}
+
+@include element("icon", "only_icon") {
+    @include mod("size", "normal") {
+        width: 24px;
+        height: 24px;
+    }
+
+    @include mod("color", "white") {
+        fill: $color-cv-text-white;
+    }
+}

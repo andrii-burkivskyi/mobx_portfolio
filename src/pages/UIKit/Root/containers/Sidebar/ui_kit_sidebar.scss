@@ -1,0 +1,10 @@
+@import "../../../../../assets/index.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 1;
+    width: 70px;
+    padding-top: 40px;
+    background-color: $color-ui-kit-background-main-sidebar;
+}

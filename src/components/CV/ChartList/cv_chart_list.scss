@@ -1,0 +1,104 @@
+@import "../../../assets/index.scss";
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chart_container {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 16px;
+    padding: 0 25px;
+
+
+    font-weight: 100;
+
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: 38px;
+
+        display: block;
+
+        width: 5px;
+        height: 5px;
+
+        content: '';
+        transform: translateY(-50%);
+
+        border-radius: 50%;
+    }
+
+    @include mod("color", "white") {
+        color: $color-cv-text-main;
+
+        &::before {
+            background-color: $color-cv-text-main;
+        }
+    }
+
+    @include mod("color", "black") {
+        color: $color-cv-text-second;
+        font-weight: 400;
+
+        &::before {
+            background-color: $color-cv-text-second;
+        }
+    }
+
+    @include mod("size", "small") {
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    @include mod("size", "large") {
+        width: 50%;
+        flex-shrink: 0;
+        @include breakpoint($ipad-p) {
+            width: 100%;
+        }
+    }
+}
+
+.chart_text {
+    width: 60%; // ff fix item align
+    height: 100%;
+    padding-left: 28px;
+
+    text-align: left;
+    text-transform: uppercase;
+
+    color: inherit;
+
+    font-family: $font-open-sans;
+    font-size: 12px;
+    font-weight: inherit;
+    line-height: 16px;
+
+    -webkit-font-smoothing: antialised; // sass-lint:disable-line no-vendor-prefixes
+}
+
+.chart_value {
+    display: block;
+
+    width: 40%;
+    height: 8px;
+
+    border-radius: 5px;
+    background-repeat: no-repeat;
+
+    @include mod("color", "white") {
+        border: 1px solid $color-cv-text-main;
+        background-image: linear-gradient(to top, $color-cv-text-main, $color-cv-text-main);
+    }
+
+    @include mod("color", "black") {
+        border: 1px solid $color-cv-text-second;
+        background-image: linear-gradient(to top, $color-cv-text-second, $color-cv-text-second);
+    }
+}

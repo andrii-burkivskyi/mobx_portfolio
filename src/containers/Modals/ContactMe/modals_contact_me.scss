@@ -1,0 +1,57 @@
+@import "../../../assets/index.scss";
+
+$header-height: 40px;
+
+.container {
+    background-color: $color-cv-background-second;
+    width: 90%;
+    max-width: $mac-book;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    height: $header-height;
+    background-color: $color-cv-background-main;
+}
+
+.title {
+    display: inline-block;
+    padding: 0 20px;
+    color: $color-cv-text-main;
+    font-family: $font-open-sans;
+    font-size: 18px;
+    line-height: $header-height;
+}
+
+.button {
+    width: $header-height;
+    height: $header-height;
+    margin-left: auto;
+}
+
+.button_icon {
+    width: 20px;
+    height: 20px;
+    transition: transform .1s ease-out 0s;
+    fill: $color-cv-text-main;
+
+    .button:hover & {
+        transform: rotateZ(45deg);
+    }
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 40px;
+    border-top: 1px solid $color-cv-background-main;
+    background-color: rgba($color-cv-background-main, .1);
+}

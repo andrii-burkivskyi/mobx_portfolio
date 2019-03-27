@@ -1,0 +1,29 @@
+:root {
+    --color-white: #FFFFFF;
+    --color-tangaroa: #1A2C3E;
+    --color-red: #FF0000;
+    --color-black: #000000;
+    --color-fountain-blue: #5EB1BF;
+    --color-link-water: #C6CFD8;
+
+    --color-top-bar-background: var(--color-tangaroa);
+    --color-top-bar-border-bottom: var(--color-white);
+    --color-top-bar-box-shadow: var(--color-black);
+
+    --color-top-bar-button: var(--color-white);
+    --color-top-bar-button-hover: var(--color-fountain-blue);
+
+    --color-cv-background-main: var(--color-tangaroa);
+    --color-cv-background-second: var(--color-white);
+
+    --color-cv-text-main: var(--color-white);
+    --color-cv-text-second: var(--color-tangaroa);
+
+    --color-cv-button: var(--color-tangaroa);
+    --color-cv-button-hover: var(--color-fountain-blue);
+
+    --color-cv-input-border: var(--color-link-water);
+    --color-cv-input-border-focus: var(--color-tangaroa);
+
+    --color-cv-error: var(--color-red);
+}

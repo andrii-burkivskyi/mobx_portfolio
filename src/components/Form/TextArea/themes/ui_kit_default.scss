@@ -1,0 +1,138 @@
+@include element("container", "ui_kit_default") {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+
+    @include mod("is_disabled") {
+        opacity: 0.7;
+    }
+}
+
+@include element("label", "ui_kit_default") {
+    font-family: $font-open-sans;
+    font-size: 14px;
+    padding-bottom: 5px;
+    color: $color-ui-kit-field; 
+
+    @include mod("is_focused") {
+        color: $color-ui-kit-field-focus;
+    }
+
+    @include mod("is_error") {
+        color: $color-ui-kit-field-error;
+    }
+
+    @include mod("is_read_only") {
+        color: $color-ui-kit-field; 
+    }
+
+    @include mod("is_disabled") {
+        color: $color-ui-kit-field; 
+    }
+}
+
+@include element("field_container", "ui_kit_default") {
+    display: block;
+    position: relative;
+    width: 100%;
+    min-height: 4 * 24px;
+
+    &:hover {
+        &::before {
+            border-bottom: 2px solid $color-ui-kit-field;
+        }
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        border-bottom: 1px solid $color-ui-kit-field;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        transform: scaleX(0);
+        transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+        border-bottom: 2px solid $color-ui-kit-field-focus;
+        pointer-events: none;
+    }
+
+    @include mod("is_focused") {
+        &::after {
+            transform: scaleX(1);
+            transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+        }
+    }
+
+    @include mod("is_error") {
+        &::after {
+            transform: scaleX(1);
+            transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+            border-bottom: 2px solid $color-ui-kit-field-error;
+        }
+    }
+
+    @include mod("is_read_only") {
+        background-color: $color-ui-kit-field;
+        &::after {
+            border-bottom: 0px solid $color-ui-kit-field;
+        }
+
+        &::before {
+            border-bottom: 0px solid $color-ui-kit-field;
+        }
+    }
+
+    @include mod("is_disabled") {
+        &::before {
+            border-bottom: 1px dashed $color-ui-kit-field;
+        }
+        &::after {
+            border-bottom: 0px dashed $color-ui-kit-field;
+        }
+        &:hover {
+            &::before {
+                border-bottom: 1px dashed $color-ui-kit-field;
+            }
+        }
+    }
+}
+
+@include element("field", "ui_kit_default") {
+    width: 100%;
+    min-height: 4 * 24px;
+    padding: 0 4px 0 0;
+    position: absolute;
+    outline: none;
+    font-family: $font-open-sans;
+    font-size: 20px;
+    background-color: transparent;
+    line-height: 24px;
+    overflow: auto;
+    resize: none;
+    color: $color-ui-kit-field;
+
+    @include mod("is_read_only") {
+        color: $color-ui-kit-field-inverse;
+        padding: 5px;
+    }
+}
+
+@include element("error", "ui_kit_default") {
+    position: absolute;
+    bottom: -14px;
+    right: 0;
+    padding: 0;
+    color: $color-ui-kit-field-error;
+    font-size: 12px;
+    line-height: 12px;
+    font-family: $font-open-sans;
+    z-index: 10;
+}

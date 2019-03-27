@@ -1,0 +1,56 @@
+@include element("button_container", "top_bar") {
+    padding-left: 8px;
+
+    @include mod("is_disabled") {
+        cursor: not-allowed;
+    }
+}
+
+@include element("button", "top_bar") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+
+    @include mod(is_disabled) {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+@include element("text_container", "top_bar") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@include element("text", "top_bar") {
+    display: flex;
+    font-size: 15px;
+    line-height: 25px;
+    font-family: $font-open-sans;
+    
+    @include mod("color", "white") {
+        color: $color-top-bar-button;
+
+        .button:hover &,
+        .button:focus & {
+            color: $color-top-bar-button-hover;
+        }
+    }
+}
+
+@include element("icon", "top_bar") {
+    width: 15px;
+    height: 25px;
+    margin-right: 5px;
+    
+    @include mod("color", "white") {
+        fill: $color-top-bar-button;
+
+        .button:hover &,
+        .button:focus & {
+            fill: $color-top-bar-button-hover;
+        }
+    }
+}

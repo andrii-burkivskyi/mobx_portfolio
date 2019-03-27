@@ -1,0 +1,27 @@
+@import "../../../../../assets/index.scss";
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    background-color: $color-ui-kit-background-main-header;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    width: 70px;
+    background-color: $color-ui-kit-background-main-header-logo;
+}
+
+.logo_icon {
+    width: 45px;
+    height: 45px;
+    fill: $color-ui-kit-text-inverse;
+
+    &:hover {
+        fill: $color-ui-kit-text-inverse-hover;
+    }
+}

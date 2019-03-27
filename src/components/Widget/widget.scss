@@ -1,0 +1,22 @@
+@import "../../assets/index.scss";
+
+.container {
+    display: block;
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px 25px;
+    margin-bottom: 2px; 
+    box-shadow: 0 27px 0 -25px $color-ui-kit-text-main-active;
+}
+
+.title {
+    color: $color-ui-kit-text-main;
+    font-family: $font-open-sans;
+    font-size: 25px;
+    font-weight: bold;
+}

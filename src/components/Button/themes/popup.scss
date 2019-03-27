@@ -1,0 +1,58 @@
+@include element("button_container", "popup") {
+    @include mod("is_disabled") {
+        cursor: not-allowed;
+    }
+}
+
+@include element("button", "popup") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    margin: 0 10px;
+
+    text-transform: uppercase;
+
+    color: $color-cv-button;
+
+    font-family: $font-open-sans;
+    font-size: 14px;
+
+    fill: $color-cv-button;
+
+    &:hover {
+        color: $color-cv-button-hover;
+
+        fill: $color-cv-button-hover;
+    }
+
+    @include mod(is_disabled) {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+@include element("text_container", "popup") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@include element("text", "popup") {
+    margin: 0 5px;
+
+    vertical-align: middle;
+
+    font-weight: 600;
+    line-height: 40px;
+}
+
+@include element("counter", "popup") {}
+
+@include element("icon", "popup") {
+    width: 18px;
+    height: 18px;
+    margin: 0 5px;
+
+    vertical-align: middle;
+}

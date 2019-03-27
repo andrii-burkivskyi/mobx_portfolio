@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "target": "es5",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "lib": [
+            "dom",
+            "esnext",
+            "es5",
+            "es2015.promise"
+        ],
+        "declaration": false,
+        "noImplicitAny": false,
+        "importHelpers": true,
+        "suppressImplicitAnyIndexErrors": false,
+        "noImplicitReturns": false,
+        "allowJs": true
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./node_modules/**/*",
+        "scripts"
+    ]
+}

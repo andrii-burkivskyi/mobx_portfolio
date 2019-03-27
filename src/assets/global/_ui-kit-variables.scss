@@ -1,0 +1,30 @@
+:root {
+    --color-midnight: #202c39;
+    --color-elephant: #283845;
+    --color-red-orange: #F44336;
+    --color-moon-yellow: #f3b61f;
+    --color-black-squeeze: #E3E4DB;
+    --color-chambray: #415A77;
+
+    --color-ui-kit-background-main-header: var(--color-elephant);
+    --color-ui-kit-background-main-header-logo: var(--color-moon-yellow);
+    --color-ui-kit-background-main-sidebar: var(--color-elephant);
+    --color-ui-kit-background-main-content: var(--color-midnight);
+
+    --color-ui-kit-text-main: var(--color-black-squeeze);
+    --color-ui-kit-text-main-active: var(--color-moon-yellow);
+    --color-ui-kit-text-main-hover: var(--color-moon-yellow);
+    --color-ui-kit-text-main-focus: var(--color-moon-yellow);
+
+
+    --color-ui-kit-text-inverse: var(--color-elephant);
+    --color-ui-kit-text-inverse-active: var(--color-midnight);
+    --color-ui-kit-text-inverse-hover: var(--color-midnight);
+    --color-ui-kit-text-inverse-focus: var(--color-midnight);
+
+    --color-ui-kit-field: var(--color-black-squeeze);
+    --color-ui-kit-field-inverse: var(--color-elephant);
+    --color-ui-kit-field-hover: var(--color-black-squeeze);
+    --color-ui-kit-field-focus: var(--color-moon-yellow);
+    --color-ui-kit-field-error: var(--color-red-orange);
+}

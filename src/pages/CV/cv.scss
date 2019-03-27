@@ -1,0 +1,103 @@
+@import "../../assets/index.scss";
+
+@media screen {
+    .wood_table {
+        @include breakpoint($ipad-p) {
+            padding: 0;
+        }
+
+        @include clearfix;
+        width: 100%;
+        height: 100%;
+        flex: 1 1 0;
+        padding: 85px 0;
+        background-image: url('/images/board.jpg');
+        background-size: cover;
+    }
+
+    .blanc {
+        @include breakpoint($ipad-p) {
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        @include breakpoint($iphone-l) {
+            background-image: linear-gradient(to right, $color-cv-background-main, $color-cv-background-main);
+            margin-top: 0px;
+        }
+
+        @include clearfix;
+        display: block;
+        width: $ipad-p;
+        min-height: $ipad-l;
+        margin: 0 auto;
+        background-image: linear-gradient(to right, $color-cv-background-main 260px, $color-cv-background-second 260px);
+        box-shadow: 0 10px 80px 2px $color-cv-background-main;
+    }
+
+    .left_column {
+        display: block;
+        float: left;
+
+        width: 260px;
+        padding-bottom: 26px;
+
+        @include breakpoint($iphone-l) {
+            width: 100%;
+        }
+    }
+
+    .right_column {
+        display: block;
+        float: right;
+
+        width: calc(100% - 260px);
+        padding-bottom: 26px;
+
+        background-color: $color-cv-background-second;
+
+        @include breakpoint($iphone-l) {
+            float: left;
+
+            width: 100%;
+        }
+    }
+}
+
+@media print {
+    .wood_table {
+        background-image: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blanc {
+        @include clearfix;
+        display: block;
+        width: 100wh;
+        min-height: 100vh;
+        margin: 0 auto;
+        padding: 0;
+        background-image: linear-gradient(to right, $color-cv-background-main 260px, $color-cv-background-second 260px);
+    }
+
+    .left_column {
+        display: block;
+        float: left;
+
+        width: 260px;
+        padding-bottom: 26px;
+    }
+
+    .right_column {
+        display: block;
+        float: right;
+
+        width: calc(100% - 260px);
+        min-height: 100vh;
+        padding-bottom: 26px;
+
+        background-color: $color-cv-background-second;
+
+    }
+}

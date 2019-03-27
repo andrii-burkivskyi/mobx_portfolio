@@ -1,0 +1,47 @@
+@import "../../assets/index";
+@import "./themes/top_bar";
+@import "./themes/cv_link";
+@import "./themes/popup";
+
+.button_container {
+    display: block;
+}
+
+.button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    width: 100%;
+    cursor: pointer;
+    font-weight: inherit;
+}
+
+.icon {
+    display: inline-block;
+
+    @include mod("icon_position", "left") {
+        order: 0;
+    }
+
+    @include mod("icon_position", "right") {
+        order: 1;
+    }
+}
+
+.text_container {
+    display: inline-block;
+
+    @include mod("icon_position", "left") {
+        order: 1;
+    }
+
+    @include mod("icon_position", "right") {
+        order: 0;
+    }
+}
+
+.counter {
+    display: block;
+}
