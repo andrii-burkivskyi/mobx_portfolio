@@ -22,7 +22,7 @@ export default class UIKitSidebarItem extends Component<ComponentProps> {
                     to={this.props.to}
                     exact={this.props.exact}
                 >
-                    <Icon className={styles.icon} glyph={this.props.glyph} />
+                    <Icon className={styles.icon} svg={this.props.glyph} />
                 </NavLink>
 
             </Tooltip>

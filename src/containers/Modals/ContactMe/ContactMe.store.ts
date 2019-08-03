@@ -1,5 +1,5 @@
-import { action, observable, computed, observe } from "mobx";
-import state, { StateStore } from "../../../core/State.store";
+import { observable, computed, action } from "mobx";
+import state from "../../../core/State.store";
 import InputStore from "../../../components/Form/Input/Input.store";
 import FormStore from "../../../components/Form/Form.store";
 import { isRequired, isEmail } from "../../../utils/validation";
@@ -8,16 +8,12 @@ import ButtonStore from "../../../components/Button/Button.store";
 import { ModalStore } from "../../../core/common";
 
 export class ContactMeStore {
-    constructor() {
-        observe(this.form, "isDisabled", (change) => this.submitButton.isDisabled = change.newValue);
-    }
-    
     @observable form = new FormStore({
         fields: {
             theme: new InputStore({
                 placeholder: "Theme",
                 type: InputStore.type.TEXT,
-                validations: [ [isRequired, "This field is required"] ]
+                validations: [[isRequired, "This field is required"]]
             }),
             email: new InputStore({
                 type: InputStore.type.EMAIL,
@@ -29,7 +25,10 @@ export class ContactMeStore {
             }),
             message: new TextAreaStore({
                 placeholder: "Message"
-            })
+            }),
+        },
+        touchHook: ({ newValue: isSomeFieldTouched }) => {
+            this.submitButton.setIsDisabled(!isSomeFieldTouched);
         },
         onSubmit: () => {
             if (this.form.isValid) {

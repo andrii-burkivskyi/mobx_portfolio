@@ -15,7 +15,7 @@ import Button, { ButtonTheme, ButtonIconPosition } from "../../../components/But
 @observer
 export default class ContactMeView extends Component {
     render() {
-        if (!ContactMe.modal.isOpen.get()) { return null; }
+        if (!ContactMe.modal.isOpen) { return null; }
 
         return (
             <Modal onOutsideClick={ContactMe.modal.close}>
@@ -34,7 +34,7 @@ export default class ContactMeView extends Component {
                 Contact letter:
             </span>
             <button className={styles.button} onClick={ContactMe.modal.close}>
-                <Icon className={styles.button_icon} glyph="#close-button" />
+                <Icon className={styles.button_icon} svg="#close-button" />
             </button>
         </div>
     )

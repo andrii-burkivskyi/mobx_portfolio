@@ -9,6 +9,8 @@
         "strict": true,
         "strictNullChecks": true,
         "moduleResolution": "node",
+        "rootDirs": ["src", "stories"],
+        "baseUrl": "src",
         "lib": [
             "dom",
             "esnext",
@@ -21,6 +23,15 @@
         "suppressImplicitAnyIndexErrors": false,
         "noImplicitReturns": false,
         "allowJs": true
+    },
+    "baseUrl": "src",
+    "paths": {
+      "components/*": [ "components/*" ],
+      "assets/*": [ "assets/*" ],
+      "containers/*": [ "containers/*" ],
+      "core/*": [ "core/*" ],
+      "pages/*": [ "pages/*" ],
+      "utils/*": [ "utils/*" ],
     },
     "include": [
         "./src/**/*"

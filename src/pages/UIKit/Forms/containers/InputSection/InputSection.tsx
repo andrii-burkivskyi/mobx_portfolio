@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 import Widget from "../../../../../components/Widget/Widget";
 import Input, { InputTheme } from "../../../../../components/Form/Input/Input";
+import { InputSectionStore } from "../InputSection/InputSection.store";
+import { t } from "../../../../../utils/translations";
 
 import styles from "./ui_kit_forms_input_section.scss";
-import { InputSectionStore } from "../InputSection/InputSection.store";
 
 interface ComponentProps {
     model: InputSectionStore;
@@ -13,6 +14,7 @@ interface ComponentProps {
 @observer
 export default class InputSection extends Component<ComponentProps> {
     render() {
+        const { model } = this.props;
         return (
             <section>
                 <Widget.Header>

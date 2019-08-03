@@ -7,7 +7,7 @@ import { ComponentProps } from './UserInfo.d';
 const UserInfo: React.SFC<ComponentProps> = ({ avatar, name, surname, position }) => (
     <div className={styles.container}>
         <img className={styles.image} src={avatar} alt={surname} />
-        <Icon className={styles.mask} glyph="#hexagon" />
+        <Icon className={styles.mask} svg="#hexagon" />
         <h2 className={styles.name}>{name}</h2>
         <h2 className={styles.surname}>{surname}</h2>
         <h3 className={styles.position}>{position}</h3>

@@ -4,11 +4,11 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import bem from "../../../utils/bem";
 
-import { ComponentProps, TextAreaTheme } from "./TextArea.d";
+import { ComponentProps, TextAreaTheme } from "./TextArea.types";
 
 import styles from "./form_textarea.scss";
 
-export { TextAreaTheme } from "./TextArea.d";
+export { TextAreaTheme } from "./TextArea.types";
 
 @observer
 export default class TextArea extends Component<ComponentProps> {
@@ -23,15 +23,15 @@ export default class TextArea extends Component<ComponentProps> {
     getClassName = (className: string) =>
         bem(className, {
             theme: this.props.theme,
-            isReadOnly: this.props.model.isReadOnly.get(),
-            isDisabled: this.props.model.isDisabled.get(),
+            isReadOnly: this.props.model.isReadOnly,
+            isDisabled: this.props.model.isDisabled,
             isError: this.props.model.shouldDisplayError,
             isFocused: this.props.model.isFocused
         });
 
     render() {
         const { model } = this.props;
-        if (!model.shouldDisplayed.get()) {
+        if (!model.shouldDisplayed) {
             return null;
         }
         return (
@@ -62,7 +62,7 @@ export default class TextArea extends Component<ComponentProps> {
                     className={this.getClassName(styles.field)}
                     style={toJS(this.props.model.fieldStyle)}
                     value={this.props.model.value}
-                    readOnly={this.props.model.isReadOnly.get() || this.props.model.isDisabled.get()}
+                    readOnly={this.props.model.isReadOnly || this.props.model.isDisabled}
                     placeholder={this.props.model.placeholder}
                     onChange={this.props.model.onChange}
                     onFocus={this.props.model.onFocus}

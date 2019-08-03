@@ -7,6 +7,8 @@ import bem from "../../utils/bem";
 import TopBar from "./TopBar.store";
 import routes from "../../pages/routes";
 
+const logo = require("../../assets/icons/logo.svg");
+
 @observer
 export default class TopBarView extends Component {
     render() {
@@ -18,9 +20,8 @@ export default class TopBarView extends Component {
                         color={ButtonColor.WHITE}
                         size={ButtonSize.NORMAL}
                         iconPosition={ButtonIconPosition.LEFT}
-                        iconWidth={20}
                         text="Andrii Burkivskyi"
-                        glyph="#logo"
+                        glyph={logo}
                         to={routes.CV.path}
                     />
 
@@ -36,7 +37,7 @@ export default class TopBarView extends Component {
                     />
                 </div>
 
-                <div className={bem(styles.navigation, { isOpen: TopBar.menu.isOpen.get() })}>
+                <div className={bem(styles.navigation, { isOpen: TopBar.menu.isOpen })}>
                     <Button
                         theme={ButtonTheme.TOP_BAR}
                         color={ButtonColor.WHITE}

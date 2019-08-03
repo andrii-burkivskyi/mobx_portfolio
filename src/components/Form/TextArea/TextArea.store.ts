@@ -5,7 +5,7 @@ import { ValidationType, validate } from "../../../utils/validation";
 import { getStringWithValues } from "../../../utils/strings";
 import { KeyCode } from "../../../utils/keyboard";
 import { get } from "get-optional";
-import { TabIndex } from "../Form.d";
+import { TabIndex } from "../Form.types";
 
 interface InitProps {
     defaultValue?: TextAreaStore["defaultValue"];
@@ -36,14 +36,12 @@ export default class TextAreaStore implements FormFieldProps {
     @observable validations: Array<ValidationType> = [];
     @observable fieldContainerRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
     @observable fieldRef: React.RefObject<HTMLTextAreaElement> = React.createRef<HTMLTextAreaElement>();
-    @observable private _fieldHeight?: number;
-    @observable private _fieldContainerHeight?: number;
+    @observable private fieldHeight?: number;
+    @observable private fieldContainerHeight?: number;
 
-    @observable shouldDisplayed: IObservableValue<boolean> = observable.box(
-        true
-    );
-    @observable isReadOnly: IObservableValue<boolean> = observable.box(false);
-    @observable isDisabled: IObservableValue<boolean> = observable.box(false);
+    @observable shouldDisplayed: boolean = true;
+    @observable isReadOnly: boolean = false;
+    @observable isDisabled: boolean = false;
 
     @observable onSubmit?: () => void;
 
@@ -59,7 +57,7 @@ export default class TextAreaStore implements FormFieldProps {
     }
 
     @computed get tabIndex(): number {
-        return this.isDisabled.get() || this.isReadOnly.get()
+        return this.isDisabled || this.isReadOnly
             ? TabIndex.Disabled
             : TabIndex.Regular;
     }
@@ -82,20 +80,20 @@ export default class TextAreaStore implements FormFieldProps {
     }
 
     @computed get scrollbarStyle(): Partial<CSSProperties> {
-        return { height: this._fieldContainerHeight };
+        return { height: this.fieldContainerHeight };
     }
     j;
 
     @computed get fieldStyle(): Partial<CSSProperties> {
-        return { height: this._fieldHeight };
+        return { height: this.fieldHeight };
     }
 
     @action init = () => {
-        this._fieldContainerHeight = get(
+        this.fieldContainerHeight = get(
             this.fieldContainerRef.current,
             "offsetHeight"
         );
-        this._fieldHeight = get(this.fieldRef.current, "scrollHeight");
+        this.fieldHeight = get(this.fieldRef.current, "scrollHeight");
     };
 
     @action update = (props: Partial<InitProps> & { value?: string }) => {
@@ -117,7 +115,7 @@ export default class TextAreaStore implements FormFieldProps {
     @action change = (value: string) => (this._value = value);
 
     @action onChange = (event: React.FormEvent<HTMLTextAreaElement>) => {
-        this._fieldHeight = event.currentTarget.scrollHeight;
+        this.fieldHeight = event.currentTarget.scrollHeight;
         this._value = event.currentTarget.value;
     };
 

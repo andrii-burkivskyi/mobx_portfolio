@@ -33,10 +33,13 @@
 }
 
 @include element("field_container", "ui_kit_default") {
-    display: block;
+    display: inline-table;
     position: relative;
     width: 100%;
     min-height: 4 * 24px;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     &:hover {
         &::before {
@@ -108,7 +111,7 @@
 @include element("field", "ui_kit_default") {
     width: 100%;
     min-height: 4 * 24px;
-    padding: 0 4px 0 0;
+    padding: 0 0 0 0;
     position: absolute;
     outline: none;
     font-family: $font-open-sans;
@@ -118,6 +121,10 @@
     overflow: auto;
     resize: none;
     color: $color-ui-kit-field;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     @include mod("is_read_only") {
         color: $color-ui-kit-field-inverse;

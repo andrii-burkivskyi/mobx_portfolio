@@ -1,10 +1,12 @@
 import React from "react";
-import { observable, action, computed, set, IObservableValue, observe } from "mobx";
-import { validate, ValidationType } from "../../../utils/validation";
-import { getStringWithValues } from "../../../utils/strings";
+import { observable, action, computed, set, IObservableValue } from "mobx";
+
+import { validate, ValidationType } from "utils/validation";
+import { getStringWithValues } from "utils/strings";
+import { KeyCode } from "utils/keyboard";
+
 import { FormFieldProps } from "../Form.store";
-import { KeyCode } from "../../../utils/keyboard";
-import { TabIndex } from "../Form.d";
+import { TabIndex } from "../Form.types";
 
 enum InputType {
     TEXT = "text",
@@ -15,8 +17,8 @@ enum InputType {
     NUMBER = "number"
 }
 
-interface InitProps {
-    type?: InputStore["type"];
+interface InitNumberProps {
+    type: InputType.NUMBER;
     defaultValue?: InputStore["defaultValue"];
     label?: InputStore["label"];
     placeholder?: InputStore["placeholder"];
@@ -30,11 +32,25 @@ interface InitProps {
     max?: InputStore["max"];
     scale?: InputStore["scale"];
     signed?: InputStore["signed"];
-    thousandsSeparator?: InputStore["thousandsSeparator"]; 
+    thousandsSeparator?: InputStore["thousandsSeparator"];
     radix?: InputStore["radix"];
 }
+interface InitCommonProps {
+    type?: InputType.TEXT | InputType.EMAIL | InputType.PASSWORD | InputType.SEARCH | InputType.URL;
+    defaultValue?: InputStore["defaultValue"];
+    label?: InputStore["label"];
+    placeholder?: InputStore["placeholder"];
+    validations?: InputStore["validations"];
+    mask?: InputStore["mask"];
+    shouldDisplayed?: InputStore["shouldDisplayed"];
+    isReadOnly?: InputStore["isReadOnly"];
+    isDisabled?: InputStore["isDisabled"];
+    onSubmit?: InputStore["onSubmit"];
+}
 
-interface MaskObject { unmaskedValue: string; }
+type InitProps = InitCommonProps | InitNumberProps;
+
+interface MaskObject { unmaskedValue: string; };
 
 export default class InputStore implements FormFieldProps {
     static type = InputType;
@@ -51,7 +67,7 @@ export default class InputStore implements FormFieldProps {
     }
 
     @observable name: string = "defaultName";
-    @observable label: string = "";
+    @observable label?: string | IObservableValue<string>;
     @observable type: InputType = InputStore.type.TEXT;
     @observable value: string = "";
     @observable publicValue: string = "";
@@ -60,32 +76,31 @@ export default class InputStore implements FormFieldProps {
     @observable validations: Array<ValidationType> = [];
     @observable mask?: string | CommonMap[] | CommonMap;
 
-    @observable shouldDisplayed: IObservableValue<boolean> = observable.box(true);
-    @observable isReadOnly: IObservableValue<boolean> = observable.box(false);
-    @observable isDisabled: IObservableValue<boolean> = observable.box(false);
+    @observable shouldDisplayed: boolean = true;
+    @observable isReadOnly: boolean = false;
+    @observable isDisabled: boolean = false;
 
     @observable isFocused: boolean = false;
     @observable shouldValidate: boolean = false;
     @observable onSubmit?: () => void;
-    
+
     @observable min?: number;
     @observable max?: number;
     @observable scale: number = 2;
     @observable signed: boolean = true;
-    @observable thousandsSeparator: string = " "; 
+    @observable thousandsSeparator: string = " ";
     @observable radix: string = ",";
 
-    //#region getters
     @computed get formValue(): string {
         return this.value;
     }
 
     @computed get tabIndex(): number {
-        return this.isDisabled.get() || this.isReadOnly.get() ? TabIndex.Disabled : TabIndex.Regular;
+        return this.isDisabled || this.isReadOnly ? TabIndex.Disabled : TabIndex.Regular;
     }
 
     @computed get publicType(): InputType {
-        return this.type === InputStore.type.NUMBER 
+        return this.type === InputStore.type.NUMBER
             ? InputStore.type.TEXT
             : this.type;
     }
@@ -100,16 +115,14 @@ export default class InputStore implements FormFieldProps {
     }
 
     @computed get isError(): boolean {
-        return  Boolean(this.error);
+        return Boolean(this.error);
     }
 
     @computed get shouldDisplayError(): boolean {
         return this.shouldValidate && Boolean(this.error);
     }
-    //#endregion
-    
-    //#region actions
-    @action update = (props: Partial<InitProps> & { value?: string}) => {
+
+    @action update = (props: Partial<InitProps> & { value?: string }) => {
         const { value, defaultValue, ...restProps } = props;
         this.value = value || defaultValue || this.value;
         this.publicValue = value || defaultValue || this.value;
@@ -131,8 +144,12 @@ export default class InputStore implements FormFieldProps {
 
     @action change = (value: string) => {
         this.value = value;
+        this.publicValue = value;
     }
 
+    /**
+     * Technical method for react-imask
+     */
     @action commit = (value: string, mask: MaskObject) => {
         if (this.mask) {
             this.value = mask.unmaskedValue;
@@ -140,18 +157,36 @@ export default class InputStore implements FormFieldProps {
         }
     }
 
+    /**
+     * Method increment value of input with type number
+     * 
+     * @remarks
+     * This method do nothing if `InputStore.type` differs from `NUMBER`
+     */
     @action increment = () => {
         if (this.type === InputStore.type.NUMBER) {
             this.publicValue = String(Number(this.value) + 1);
         }
     }
 
+    /**
+     * Method decrement value of input with type number
+     * 
+     * @remarks
+     * This method do nothing if `InputStore.type` differs from `NUMBER`
+     */
     @action decrement = () => {
         if (this.type === InputStore.type.NUMBER) {
             this.publicValue = String(Number(this.value) - 1);
         }
     }
 
+    /**
+     * Technical method for controlled input
+     * 
+     * @remarks
+     * This method do nothing if `InputStore.mask` is set
+     */
     @action onChange = (event: React.FormEvent<HTMLInputElement>) => {
         if (!this.mask) {
             this.value = event.currentTarget.value;
@@ -159,6 +194,12 @@ export default class InputStore implements FormFieldProps {
         }
     }
 
+    /**
+     * Technical method for controlled input
+     * 
+     * @remarks
+     * This method do nothing if `InputStore.mask` is not set
+     */
     @action onAccept = (value: string, mask: MaskObject) => {
         if (this.mask) {
             this.value = mask.unmaskedValue;
@@ -166,15 +207,18 @@ export default class InputStore implements FormFieldProps {
         }
     }
 
-    @action onFocus = () => {
+    @action focus = () => {
         this.isFocused = true;
     }
 
-    @action onBlur = () => {
+    @action blur = () => {
         this.isFocused = false;
         this.shouldValidate = true;
     }
 
+    /**
+     * Technical method for implementing submit on `enter` mechanic
+     */
     @action onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (this.onSubmit && event.keyCode === KeyCode.ENTER) {
             event.preventDefault();
@@ -182,5 +226,4 @@ export default class InputStore implements FormFieldProps {
             this.onSubmit();
         }
     }
-    //#endregion
 }

@@ -1,21 +1,27 @@
 import { observable, action, IObservableValue } from "mobx";
 
+interface ModalProps {
+    isOpen: ModalStore["isOpen"]
+}
+
 export default class ModalStore {
-    constructor(isOpen: boolean = false) {
-        this.isOpen = observable.box(isOpen);
+    constructor(props?: ModalProps) {
+        if (props) {
+            this.isOpen = props.isOpen;
+        }
     }
 
-    @observable isOpen: IObservableValue<boolean>;
+    @observable isOpen: boolean = false;
 
     @action open = () => {
-        this.isOpen.set(true);
+        this.isOpen = true;
     }
 
     @action close = () => {
-        this.isOpen.set(false);
+        this.isOpen = false;
     }
 
     @action toggle = () => {
-        this.isOpen.set(!this.isOpen.get());
+        this.isOpen = !this.isOpen;
     }
 }

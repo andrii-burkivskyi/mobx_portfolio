@@ -1,28 +1,26 @@
 import { observable } from "mobx";
 import { isRequired } from "../../../../../utils/validation";
 import TextAreaStore from "../../../../../components/Form/TextArea/TextArea.store";
-import text from "./i18n/Translation.store";
 
 export class TextAreaSectionStore {
-    @observable text = text; 
-    @observable simpleTextArea: TextAreaStore = new TextAreaStore({
+    @observable simpleTextArea = new TextAreaStore({
         label: "Simple textarea",
     });
 
-    @observable validateTextArea: TextAreaStore = new TextAreaStore({
+    @observable validateTextArea = new TextAreaStore({
         label: "Validate textarea",
         validations: [[isRequired, "This field is required"]]
     });
 
-    @observable readonlyTextArea: TextAreaStore = new TextAreaStore({
+    @observable readonlyTextArea = new TextAreaStore({
         label: "Readonly textarea",
         defaultValue: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-        isReadOnly: observable.box(true)
+        isReadOnly: true
     });
 
-    @observable disabledTextArea: TextAreaStore = new TextAreaStore({
+    @observable disabledTextArea = new TextAreaStore({
         label: "Disabled textarea",
         defaultValue: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-        isDisabled: observable.box(true)
+        isDisabled: true
     });
 }

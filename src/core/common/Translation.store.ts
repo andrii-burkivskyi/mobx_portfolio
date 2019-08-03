@@ -1,53 +1,38 @@
-import { observable, computed, observe, action } from "mobx";
+import { observable, computed, observe, action, toJS, IObservableValue } from "mobx";
 import state from "../State.store";
 import { get } from "get-optional";
 import { NULL_CHAR } from "../../utils/constants";
 
 interface InitialProps<T> {
     languages: Translation<T>["languages"];
-    values: Translation<T>["_values"];
-}
-
-class TranslationItem {
-
+    keys: Translation<T>["keys"];
 }
 
 export default class Translation<T> {
     constructor(props: InitialProps<T>) {
         this.languages = props.languages;
-        this._values = props.values;
+        this.keys = props.keys;
+        this.i18n = Object.keys(props.keys).reduce((i18n, key) => {
+            i18n[key] = observable.box(NULL_CHAR);
+            return i18n;
+        }, {} as KeyWithValue<T, IObservableValue<string>>);
         this.setLanguage(state.language);
         observe(state, "language", async (change) => { this.setLanguage(change.newValue); });
     }
 
+
     @observable languages: {
-        en: () => Promise<CommonMap>
-        ru: () => Promise<CommonMap>
+        en: () => Promise<any>
+        ru: () => Promise<any>
     };
-    @observable _translatedText: {
-        en?: CommonMap,
-        ru?: CommonMap
-    } = { en: {}, ru: {}};
 
-    @observable private _values: { [P in keyof T]: string; };
+    @observable i18n: KeyWithValue<T, IObservableValue<string>>;
+    @observable private keys: KeyWithValue<T, string>;
 
-    @computed get i18n(): { [P in keyof T]: (subStringObject?: CommonMap) => string} {
-        return Object.entries<string>(this._values).reduce((translationsAcc, [translationKey, translationValue]) => {
-            translationsAcc[translationKey] = (subStringObject?: CommonMap) =>
-                subStringObject
-                    ? Object.entries(subStringObject).reduce(
-                        (translationString, [subStringKey, subStringValue]) =>
-                            translationString.replace(`{${subStringKey}}`, subStringValue),
-                        get(this._translatedText, state.language, translationValue) || NULL_CHAR
-                    )
-                    : get(this._translatedText, state.language, translationValue) || NULL_CHAR;
-
-            return translationsAcc;
-        }, {} as { [P in keyof T]: (subStringObject?: CommonMap) => string})
+    @action setLanguage = async (language: "en" | "ru") => {
+        const translations = await this.languages[language]();
+        Object.entries<string>(this.keys).forEach(([key, value]) => {
+            (<IObservableValue<string>>this.i18n[key]).set(translations[value])
+        });
     }
-
-    @action setLanguage = async (language: string) => {
-        this._translatedText[language] = await this.languages[language]();
-    }
-
 }

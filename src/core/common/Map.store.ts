@@ -1,6 +1,6 @@
 import { observable, action, computed } from "mobx";
 
-import { RequestOptions } from "../../utils/fetch.d";
+import { RequestOptions } from "../../utils/fetch.types";
 import { AxiosPromise, AxiosResponse } from "axios";
 
 interface MapInitProps<R = any, M = CommonMap> {

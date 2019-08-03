@@ -9,9 +9,9 @@ import ButtonStore from "./Button.store";
 
 import styles from "./button.scss"
 
-import { ComponentProps } from "./Button.d";
+import { ComponentProps } from "./Button.types";
 
-export { ButtonTheme, ButtonColor, ButtonSize, ButtonIconPosition } from "./Button.d";
+export { ButtonTheme, ButtonColor, ButtonSize, ButtonIconPosition } from "./Button.types";
 
 @observer
 export default class Button extends Component<ComponentProps> {
@@ -61,8 +61,8 @@ export default class Button extends Component<ComponentProps> {
         ({ className: this.getClassName(styles.button), to, href, onClick, target }) as any;
 
     renderText = (props: ComponentProps) => props.text && (
-        <div className={this.getClassName(styles.text_container)}>
-            <span className={this.getClassName(styles.text)}>{props.text}</span>
+        <div aria-disabled className={this.getClassName(styles.text_container)}>
+            <span aria-disabled className={this.getClassName(styles.text)}>{props.text}</span>
             {
                 props.counter !== undefined && props.counter > 1 &&
                 <span className={this.getClassName(styles.counter)}>
@@ -75,9 +75,7 @@ export default class Button extends Component<ComponentProps> {
     renderIcon = (props: ComponentProps) => props.glyph && (
         <Icon
             className={this.getClassName(styles.icon)}
-            width={props.iconWidth}
-            height={props.iconHeight}
-            glyph={props.glyph}
+            svg={props.glyph}
         />
     );
 

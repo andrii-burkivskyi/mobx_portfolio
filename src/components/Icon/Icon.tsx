@@ -3,13 +3,10 @@ import { observer } from "mobx-react";
 
 import { ComponentProps } from "./IconTypes.d";
 
-const files = require["context"]("svg-sprite-loader!svgo-loader!../../assets/icons", false, /.*\.svg$/);
-files.keys().map(files);
+import styles from "./icon.scss"
 
-const Icon: React.SFC<ComponentProps> = ({ className, width, height, glyph, fill }) => (
-    <svg className={className} style={{ width, height, fill }}>
-        <use xlinkHref={glyph} />
-    </svg>
+const Icon: React.SFC<ComponentProps> = ({ className, svg }) => (
+    <span className={`${styles.icon} ${className}`} dangerouslySetInnerHTML={{__html: svg}} />
 );
 
 export default observer(Icon);

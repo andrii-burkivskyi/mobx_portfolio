@@ -7,10 +7,10 @@ export class UIKitFormsStore {
     constructor() {
         observe(this.inputSection.standardInput, "value", (change) => {
             if (change.newValue === "lol") {
-                state.language = "ru"
+                state.language = "ru";
             }
             else {
-                state.language = "en"
+                state.language = "en";
             }
         })
     }

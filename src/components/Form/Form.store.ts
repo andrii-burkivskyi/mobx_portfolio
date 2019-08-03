@@ -1,4 +1,4 @@
-import { observable, action, computed, IObservableValue, observe } from "mobx";
+import { observable, action, computed, observe, IValueDidChange } from "mobx";
 import TextAreaStore from "./TextArea/TextArea.store";
 import InputStore from "./Input/Input.store";
 import { DEFAULT_FUNCTION } from "../../utils/constants";
@@ -15,6 +15,7 @@ export interface FormFieldProps {
 
 interface InitProps<T> {
     fields: FormStore<T>["fields"];
+    touchHook?: FormStore<T>["_touchHook"];
     onSubmit?: () => void;
 }
 
@@ -23,15 +24,12 @@ export default class FormStore<T> {
         this.fields = props.fields;
         this._fields.forEach((field) => field.onSubmit = (field.onSubmit || props.onSubmit));
         this.submit = props.onSubmit || DEFAULT_FUNCTION;
-        this.isDisabledObservable.set(this.isDisabled);
-        this.isValidObservable.set(this.isValid);
-        observe(this, "isDisabled", (change) => this.isDisabledObservable.set(change.newValue));
-        observe(this, "isValid", (change) => this.isValidObservable.set(change.newValue));
+        this._touchHook = props.touchHook;
+        this._touchHook && observe(this, "isTouched", this._touchHook);
     }
 
     @observable fields: { [P in keyof T]: T[P] };
-    @observable isDisabledObservable: IObservableValue<boolean> = observable.box(false);
-    @observable isValidObservable: IObservableValue<boolean> = observable.box(false);
+    @observable private _touchHook?: (change: IValueDidChange<boolean>) => void;
     @observable submit: () => void;
 
     @computed get data(): { [P in keyof T]: FormFieldProps["formValue"] } {
@@ -45,8 +43,8 @@ export default class FormStore<T> {
         return Object.keys(this.fields).map((key) => <FormFieldProps>this.fields[key])
     }
 
-    @computed get isDisabled(): boolean  {
-        return !this._fields.some((field) => field.isTouched);
+    @computed get isTouched(): boolean  {
+        return this._fields.some((field) => field.isTouched);
     }
 
     @computed get isValid(): boolean  {

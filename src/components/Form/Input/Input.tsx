@@ -1,16 +1,18 @@
 import React, {Component} from "react";
 import { observer } from "mobx-react";
-import { IMaskInput } from "react-imask";
-import bem from "../../../utils/bem";
-
-import { ComponentProps, InputTheme } from "./Input.d";
-
-import styles from "./form_input.scss";
 import { toJS } from "mobx";
-import Icon from "../../Icon/Icon";
-import InputStore from "./Input.store";
+import { IMaskInput } from "react-imask";
 
-export { InputTheme } from "./Input.d";
+import Icon from "components/Icon/Icon";
+
+import bem from "utils/bem";
+import { isString } from "utils/typeGuards";
+
+import arrow from "assets/icons/arrow.svg";
+
+import InputStore from "./Input.store";
+import { ComponentProps, InputTheme } from "./Input.types";
+import styles from "./form_input.scss";
 
 @observer
 export default class Input extends Component<ComponentProps> {
@@ -20,15 +22,16 @@ export default class Input extends Component<ComponentProps> {
 
     getClassName = (className: string) => bem(className, {
         theme: this.props.theme,
-        isReadOnly: this.props.model.isReadOnly.get(),
-        isDisabled: this.props.model.isDisabled.get(),
+        isReadOnly: this.props.model.isReadOnly,
+        isDisabled: this.props.model.isDisabled,
         isError: this.props.model.shouldDisplayError,
         isFocused: this.props.model.isFocused,
         isNumber: this.props.model.type === InputStore.type.NUMBER
     });
 
     render() {
-        if (!this.props.model.shouldDisplayed.get()) { return null; }
+        if (!this.props.model.shouldDisplayed) { return null; }
+        console.log(Icon);
 
         return (
             <div className={this.getClassName(styles.container)}>
@@ -42,7 +45,7 @@ export default class Input extends Component<ComponentProps> {
 
     renderLabel = () => this.props.model.label && (
         <label className={this.getClassName(styles.label)}>
-            {this.props.model.label}
+            {isString(this.props.model.label) ? this.props.model.label: this.props.model.label.get()}
         </label>
     );
 
@@ -58,13 +61,13 @@ export default class Input extends Component<ComponentProps> {
                 onChange={this.props.model.onChange}
                 commit={this.props.model.commit}
                 onAccept={this.props.model.onAccept}
-                onFocus={this.props.model.onFocus}
-                onBlur={this.props.model.onBlur}
+                onFocus={this.props.model.focus}
+                onBlur={this.props.model.blur}
                 min={this.props.model.min}
                 max={this.props.model.max}
                 scale={this.props.model.scale}
                 signed={this.props.model.signed}
-                readOnly={this.props.model.isReadOnly.get() || this.props.model.isDisabled.get()}
+                readOnly={this.props.model.isReadOnly || this.props.model.isDisabled}
                 thousandsSeparator={this.props.model.thousandsSeparator}
                 radix={this.props.model.radix}
                 tabIndex={this.props.model.tabIndex}
@@ -76,19 +79,21 @@ export default class Input extends Component<ComponentProps> {
     renderArrows = () => this.props.model.type === InputStore.type.NUMBER && (
         <div className={this.getClassName(styles.number_arrows)}>
             <button
+                aria-disabled
                 className={this.getClassName(styles.number_arrow)}
                 onClick={this.props.model.increment}
                 tabIndex={-1}
             >
-                <Icon className={this.getClassName(styles.number_arrow_icon_up)} glyph="#arrow" />
+                <Icon className={this.getClassName(styles.number_arrow_icon_up)} svg={arrow} />
             </button>
 
             <button
+                aria-disabled
                 className={this.getClassName(styles.number_arrow)}
                 onClick={this.props.model.decrement}
                 tabIndex={-1}
             >
-                <Icon className={this.getClassName(styles.number_arrow_icon_down)} glyph="#arrow" />
+                <Icon className={this.getClassName(styles.number_arrow_icon_down)} svg={arrow} />
             </button>
         </div>
     );
@@ -99,3 +104,5 @@ export default class Input extends Component<ComponentProps> {
         </span>
     );
 }
+
+export { InputTheme } from "./Input.types";

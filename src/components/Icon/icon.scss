@@ -1,0 +1,10 @@
+.icon {
+    display: block;
+    line-height: 0;
+    font-size: 0;
+}
+.icon>svg {
+    width: inherit;
+    height: inherit;
+    fill: inherit;
+}

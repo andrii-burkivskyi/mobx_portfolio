@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
 import bem from "../../../utils/bem";
-import { ChartListColor, ChartListSize, ComponentProps } from "./ChartList.d";
+
+import { ChartListColor, ChartListSize, ComponentProps } from "./ChartList.types";
+export { ChartListColor, ChartListSize } from "./ChartList.types";
+
 import styles from "./cv_chart_list.scss";
 
 export default class ChartList extends Component<ComponentProps> {
@@ -35,5 +38,3 @@ export default class ChartList extends Component<ComponentProps> {
         );
     }
 }
-
-export { ChartListColor, ChartListSize } from "./ChartList.d";

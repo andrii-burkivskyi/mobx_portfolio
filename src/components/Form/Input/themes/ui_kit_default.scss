@@ -143,14 +143,15 @@
 }
 
 @include element("number_arrow", "ui_kit_default") {
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
 }
 
 @include element("number_arrow_icon_up", "ui_kit_default") {
-    width: 15px;
-    height: 17px;
-    padding: 4px 0;
+    display: block;
+    width: 12px;
+    height: 12px;
+    padding: 0;
     transform: rotate(-90deg);
     fill: $color-ui-kit-field;
     &:hover {
@@ -159,9 +160,10 @@
 }
 
 @include element("number_arrow_icon_down", "ui_kit_default") {
-    width: 15px;
-    height: 17px;
-    padding: 4px 0;
+    display: block;
+    width: 12px;
+    height: 12px;
+    padding: 0;
     transform: rotate(90deg);
     fill: $color-ui-kit-field;
     &:hover {

@@ -3,7 +3,7 @@ import pathToRegexp from "path-to-regexp";
 import qs from "query-string";
 import {get} from "get-optional";
 
-import { ConfigureRequest, AxiosHTTPMethods, RequestOptions } from "./fetch.d";
+import { ConfigureRequest, AxiosHTTPMethods, RequestOptions } from "./fetch.types";
 
 export const getUrlWithParams = (url: string, params: Object): string =>
     pathToRegexp.compile(url.replace(/(https?\:\/\/.+?\/)/, "/"))(params);

@@ -1,43 +1,42 @@
 import { observable } from "mobx";
-import { isEmail, isPhone } from "../../../../../utils/validation";
+import { isEmail, isPhone, isRequired } from "../../../../../utils/validation";
 import { phoneMask } from "../../../../../utils/mask";
 import InputStore from "../../../../../components/Form/Input/Input.store";
-import text from "./i18n/Translation.store";
 
 export class InputSectionStore {
-    @observable text = text;
-    @observable standardInput: InputStore = new InputStore({
+
+    @observable standardInput = new InputStore({
         type: InputStore.type.TEXT,
-        label: this.text.i18n.standardInput()
+        label: "Standard input"
     });
 
-    @observable validatedInput: InputStore = new InputStore({
+    @observable validatedInput = new InputStore({
         type: InputStore.type.EMAIL,
         label: "Validated input (e-mail)",
         validations: [ [isEmail, "Email should be valid"] ]
     });
 
-    @observable maskedInput: InputStore = new InputStore({
+    @observable maskedInput = new InputStore({
         type: InputStore.type.TEXT,
         label: "Masked input (phone)",
         mask: phoneMask,
         validations: [ [isPhone, "Phone should be valid"] ]
     });
 
-    @observable numberInput: InputStore = new InputStore({
+    @observable numberInput = new InputStore({
         type: InputStore.type.NUMBER,
         label: "Number input",
     });
 
-    @observable readOnlyInput: InputStore = new InputStore({
+    @observable readOnlyInput = new InputStore({
         label: "Read only input",
-        defaultValue: "Value of read only input",
-        isReadOnly: observable.box(true),
+        defaultValue: "Value of readonly input",
+        isReadOnly: true,
     });
 
-    @observable disabledInput: InputStore = new InputStore({
+    @observable disabledInput = new InputStore({
         label: "Disabled input",
         defaultValue: "Value of disabled input",
-        isDisabled: observable.box(true),
+        isDisabled: true,
     });
 }

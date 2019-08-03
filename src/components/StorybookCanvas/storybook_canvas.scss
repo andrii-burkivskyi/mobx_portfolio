@@ -1,0 +1,17 @@
+@import "../../assets/index.scss";
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.canvas {
+    display: inline-block;
+
+    @include mod("color", "gray") {
+        background-color: $color-ui-kit-background-main-sidebar;
+    }
+
+    @include mod("color", "white") {
+    }
+}

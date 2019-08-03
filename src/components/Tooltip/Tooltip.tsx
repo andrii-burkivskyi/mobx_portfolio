@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import ReactTooltip  from "react-tooltip";
 import renderChildren from "../../utils/renderChildren";
 
-import { ComponentProps, TooltipPlace } from "./Tooltip.d";
+import { ComponentProps, TooltipPlace } from "./Tooltip.types";
 import styles from "./tooltip.scss"
 
-export { TooltipPlace } from "./Tooltip.d"
+export { TooltipPlace } from "./Tooltip.types"
 
 export default class Tooltip extends Component<ComponentProps> {
     static defaultProps = {
