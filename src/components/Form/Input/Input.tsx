@@ -4,24 +4,19 @@ import { toJS } from "mobx";
 import { IMaskInput } from "react-imask";
 
 import Icon from "components/Icon/Icon";
+import FormItem from "components/Form/FormItem/FormItem";
 
 import bem from "utils/bem";
-import { isString } from "utils/typeGuards";
 
 import arrow from "assets/icons/arrow.svg";
 
 import InputStore from "./Input.store";
-import { ComponentProps, InputTheme } from "./Input.types";
 import styles from "./form_input.scss";
 
 @observer
-export default class Input extends Component<ComponentProps> {
-    static defaultProps = {
-        theme: InputTheme.CV_MAIL
-    }
-
+export default class Input extends Component<ViewOf<InputStore> & HasClassName> {
     getClassName = (className: string) => bem(className, {
-        theme: this.props.theme,
+        theme: this.props.model.theme,
         isReadOnly: this.props.model.isReadOnly,
         isDisabled: this.props.model.isDisabled,
         isError: this.props.model.shouldDisplayError,
@@ -30,24 +25,12 @@ export default class Input extends Component<ComponentProps> {
     });
 
     render() {
-        if (!this.props.model.shouldDisplayed) { return null; }
-        console.log(Icon);
-
         return (
-            <div className={this.getClassName(styles.container)}>
-                {this.renderLabel()}
+            <FormItem className={this.props.className} model={this.props.model}>
                 {this.renderField()}
-                {this.renderError()}
-            </div>
-        );
-
-    };
-
-    renderLabel = () => this.props.model.label && (
-        <label className={this.getClassName(styles.label)}>
-            {isString(this.props.model.label) ? this.props.model.label: this.props.model.label.get()}
-        </label>
-    );
+            </FormItem>
+        )
+    }
 
     renderField = () => (
         <div className={this.getClassName(styles.field_container)}>
@@ -97,12 +80,4 @@ export default class Input extends Component<ComponentProps> {
             </button>
         </div>
     );
-
-    renderError = () => this.props.model.shouldDisplayError && (
-        <span className={this.getClassName(styles.error)}>
-            {this.props.model.error}
-        </span>
-    );
 }
-
-export { InputTheme } from "./Input.types";

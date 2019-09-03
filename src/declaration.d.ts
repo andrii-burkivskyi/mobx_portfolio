@@ -3,12 +3,20 @@ declare type KeyWithValue<T, U> = {
 };
 
 interface CommonMapWithId {
-    id: string | number,
-    [key: string]: any
+    id: string | number;
+    [key: string]: any;
 }
 
 interface CommonMap {
-    [key: string]: any
+    [key: string]: any;
+}
+
+interface ViewOf<T> {
+    model: T;
+}
+
+interface HasClassName {
+    className?: string;
 }
 
 declare module '*.scss' {

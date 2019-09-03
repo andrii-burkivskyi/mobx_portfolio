@@ -1,17 +1,18 @@
 @import "../../assets/index.scss";
 
 .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
     width: 100%;
     min-height: 100vh;
+    padding: 20px;
 }
 
 .canvas {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     display: inline-block;
-
-    @include mod("color", "gray") {
-        background-color: $color-ui-kit-background-main-sidebar;
-    }
-
-    @include mod("color", "white") {
-    }
+    border-radius: 3px;
+    width: 100%;
+    padding: 30px;
 }

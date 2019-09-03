@@ -1,20 +1,12 @@
-@include element("container", "cv_mail") {
-    display: block;
-    position: relative;
-}
-
 @include element("field_container", "cv_mail") {
     display: block;
     width: 100%;
 }
 
-@include element("label", "cv_mail") {
-    display: none;
-}
 
 @include element("field", "cv_mail") {
     display: block;
-    width: calc(100% - 20px);
+    width: 100%;
     height: 40px;
     margin: 0;
     padding: 0 10px;
@@ -30,16 +22,4 @@
     @include mod("is_error") {
         border-bottom: 2px solid $color-cv-error;
     }
-}
-
-
-@include element("error", "cv_mail") {
-    position: absolute;
-    right: 0;
-    padding: 0 10px;
-    color: $color-cv-error;
-    font-size: 12px;
-    line-height: 12px;
-    font-family: $font-open-sans;
-    z-index: 10;
 }

@@ -1,13 +1,17 @@
 import React, {Component} from "react";
 import { observer } from "mobx-react";
-import Button, { ButtonTheme, ButtonColor, ButtonSize, ButtonIconPosition } from "../../components/Button/Button";
+
+import Button, { ButtonTheme, ButtonColor, ButtonSize, ButtonIconPosition } from "components/Button/Button";
+
+import bem from "utils/bem";
+import routes from "pages/routes";
+
+import logo from "assets/icons/logo.svg";
+
+import TopBar from "./TopBar.store";
 
 import styles from "./top_bar.scss";
-import bem from "../../utils/bem";
-import TopBar from "./TopBar.store";
-import routes from "../../pages/routes";
 
-const logo = require("../../assets/icons/logo.svg");
 
 @observer
 export default class TopBarView extends Component {

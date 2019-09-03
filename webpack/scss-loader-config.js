@@ -24,9 +24,7 @@ const scss_loader = {
                         addDependencyTo: bundler
                     }),
                     require('precss')(),
-                    require('autoprefixer')({
-                        browsers: AUTOPREFIXER_BROWSERS
-                    })
+                    require('autoprefixer')()
                 ]
             }
         },

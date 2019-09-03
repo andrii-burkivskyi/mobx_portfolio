@@ -1,15 +1,15 @@
 import React, { CSSProperties } from "react";
-import { observable, action, computed, set, IObservableValue } from "mobx";
-import { FormFieldProps } from "../Form.store";
-import { ValidationType, validate } from "../../../utils/validation";
-import { getStringWithValues } from "../../../utils/strings";
-import { KeyCode } from "../../../utils/keyboard";
+import { observable, action, computed, set } from "mobx";
+import { ValidationType, validate } from "utils/validation";
+import { getStringWithValues } from "utils/strings";
+import { KeyCode } from "utils/keyboard";
 import { get } from "get-optional";
-import { TabIndex } from "../Form.types";
+import { TabIndex, FormIntegrationProps, FormItemProps, FormTheme } from "components/Form/Form.types";
 
-interface InitProps {
+export interface InitProps {
     defaultValue?: TextAreaStore["defaultValue"];
     label?: TextAreaStore["label"];
+    theme?: TextAreaStore["theme"];
     placeholder?: TextAreaStore["placeholder"];
     validations?: TextAreaStore["validations"];
 
@@ -20,7 +20,9 @@ interface InitProps {
     onSubmit?: TextAreaStore["onSubmit"];
 }
 
-export default class TextAreaStore implements FormFieldProps {
+export default class TextAreaStore implements FormIntegrationProps, FormItemProps {
+    static theme = FormTheme;
+
     constructor(props?: InitProps) {
         if (props) {
             this._value = props.defaultValue || this.defaultValue;
@@ -28,6 +30,7 @@ export default class TextAreaStore implements FormFieldProps {
         }
     }
 
+    @observable theme: FormTheme = TextAreaStore.theme.CV_MAIL;
     @observable name: string = "defaultName";
     @observable private _value: string = "";
     @observable defaultValue: string = "";

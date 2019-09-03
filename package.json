@@ -16,6 +16,7 @@
     "@storybook/addon-storyshots-puppeteer": "^5.1.10",
     "@storybook/node-logger": "^5.1.10",
     "@types/jest": "^24.0.16",
+    "@types/storybook__react": "^4.0.2",
     "axios": "^0.18.0",
     "babel-plugin-macros": "^2.6.1",
     "get-optional": "^2.0.3",
@@ -106,5 +107,10 @@
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8"
-  }
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "IE 10"
+  ]
 }

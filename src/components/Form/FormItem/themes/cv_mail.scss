@@ -1,0 +1,24 @@
+@include element("container", "cv_mail") {
+    display: block;
+    position: relative;
+}
+
+@include element("label", "cv_mail") {
+    display: none;
+}
+
+@include element("item_container", "cv_mail") {
+    display: flex;
+    flex-direction: column;
+}
+
+@include element("error", "cv_mail") {
+    position: absolute;
+    right: 0;
+    padding: 0 10px;
+    color: $color-cv-error;
+    font-size: 12px;
+    line-height: 12px;
+    font-family: $font-open-sans;
+    z-index: 10;
+}

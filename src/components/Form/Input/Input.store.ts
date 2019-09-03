@@ -5,8 +5,7 @@ import { validate, ValidationType } from "utils/validation";
 import { getStringWithValues } from "utils/strings";
 import { KeyCode } from "utils/keyboard";
 
-import { FormFieldProps } from "../Form.store";
-import { TabIndex } from "../Form.types";
+import { TabIndex, FormTheme, FormIntegrationProps, FormItemProps } from "components/Form/Form.types";
 
 enum InputType {
     TEXT = "text",
@@ -19,6 +18,7 @@ enum InputType {
 
 interface InitNumberProps {
     type: InputType.NUMBER;
+    theme?: InputStore["theme"];
     defaultValue?: InputStore["defaultValue"];
     label?: InputStore["label"];
     placeholder?: InputStore["placeholder"];
@@ -36,7 +36,8 @@ interface InitNumberProps {
     radix?: InputStore["radix"];
 }
 interface InitCommonProps {
-    type?: InputType.TEXT | InputType.EMAIL | InputType.PASSWORD | InputType.SEARCH | InputType.URL;
+    type: InputType.TEXT | InputType.EMAIL | InputType.PASSWORD | InputType.SEARCH | InputType.URL;
+    theme?: InputStore["theme"];
     defaultValue?: InputStore["defaultValue"];
     label?: InputStore["label"];
     placeholder?: InputStore["placeholder"];
@@ -48,11 +49,12 @@ interface InitCommonProps {
     onSubmit?: InputStore["onSubmit"];
 }
 
-type InitProps = InitCommonProps | InitNumberProps;
+export type InitProps = InitCommonProps | InitNumberProps;
 
 interface MaskObject { unmaskedValue: string; };
 
-export default class InputStore implements FormFieldProps {
+export default class InputStore implements FormIntegrationProps, FormItemProps  {
+    static theme = FormTheme;
     static type = InputType;
 
     constructor(props?: InitProps) {
@@ -68,6 +70,7 @@ export default class InputStore implements FormFieldProps {
 
     @observable name: string = "defaultName";
     @observable label?: string | IObservableValue<string>;
+    @observable theme: FormTheme = InputStore.theme.CV_MAIL;
     @observable type: InputType = InputStore.type.TEXT;
     @observable value: string = "";
     @observable publicValue: string = "";

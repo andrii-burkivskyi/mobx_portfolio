@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
-import Widget from "../../../../../components/Widget/Widget";
-import Input, { InputTheme } from "../../../../../components/Form/Input/Input";
-import { InputSectionStore } from "../InputSection/InputSection.store";
-import { t } from "../../../../../utils/translations";
+
+import Widget from "components/Widget/Widget";
+import Input from "components/Form/Input/Input";
+
+import { t } from "utils/translations";
+
+import { InputSectionStore } from "./InputSection.store";
 
 import styles from "./ui_kit_forms_input_section.scss";
 
@@ -21,42 +24,12 @@ export default class InputSection extends Component<ComponentProps> {
                     <Widget.Title>1. Inputs</Widget.Title>
                 </Widget.Header>
                 <div className={styles.grid}>
-                    <div className={styles.col}>
-                        <Input
-                            theme={InputTheme.UI_KIT_DEFAULT}
-                            model={this.props.model.standardInput}
-                        />
-                    </div>
-                    <div className={styles.col}>
-                        <Input
-                            theme={InputTheme.UI_KIT_DEFAULT}
-                            model={this.props.model.validatedInput}
-                        />
-                    </div>
-                    <div className={styles.col}>
-                        <Input
-                            theme={InputTheme.UI_KIT_DEFAULT}
-                            model={this.props.model.maskedInput}
-                        />
-                    </div>
-                    <div className={styles.col}>
-                        <Input
-                            theme={InputTheme.UI_KIT_DEFAULT}
-                            model={this.props.model.numberInput}
-                        />
-                    </div>
-                    <div className={styles.col}>
-                        <Input
-                            theme={InputTheme.UI_KIT_DEFAULT}
-                            model={this.props.model.readOnlyInput}
-                        />
-                    </div>
-                    <div className={styles.col}>
-                        <Input
-                            theme={InputTheme.UI_KIT_DEFAULT}
-                            model={this.props.model.disabledInput}
-                        />
-                    </div>
+                    <Input className={styles.col} model={this.props.model.standardInput} />
+                    <Input className={styles.col} model={this.props.model.validatedInput} />
+                    <Input className={styles.col} model={this.props.model.maskedInput} />
+                    <Input className={styles.col} model={this.props.model.numberInput} />
+                    <Input className={styles.col} model={this.props.model.readOnlyInput} />
+                    <Input className={styles.col} model={this.props.model.disabledInput} />
                 </div>
             </section>
         );

@@ -1,0 +1,51 @@
+@include element("container", "ui_kit_default") {
+    display: flex;
+    height: 100%;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include mod("is_disabled") {
+        opacity: 0.7;
+    }
+}
+
+@include element("label", "ui_kit_default") {
+    font-family: $font-open-sans;
+    font-size: 14px;
+    padding-bottom: 5px;
+    color: $color-ui-kit-field; 
+
+    @include mod("is_focused") {
+        color: $color-ui-kit-field-focus;
+    }
+
+    @include mod("is_error") {
+        color: $color-ui-kit-field-error;
+    }
+
+    @include mod("is_read_only") {
+        color: $color-ui-kit-field; 
+    }
+
+    @include mod("is_disabled") {
+        color: $color-ui-kit-field; 
+    }
+}
+
+@include element("item_container", "ui_kit_default") {
+    display: flex;
+    flex-direction: column;
+}
+
+@include element("error", "ui_kit_default") {
+    position: absolute;
+    bottom: -14px;
+    right: 0;
+    padding: 0;
+    color: $color-ui-kit-field-error;
+    font-size: 12px;
+    line-height: 12px;
+    font-family: $font-open-sans;
+    z-index: 10;
+}

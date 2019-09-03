@@ -2,22 +2,8 @@ import { observable, action, computed, observe, IValueDidChange } from "mobx";
 import TextAreaStore from "./TextArea/TextArea.store";
 import InputStore from "./Input/Input.store";
 import { DEFAULT_FUNCTION } from "../../utils/constants";
+import { InitProps, FormIntegrationProps, FormItemProps } from "./Form.types";
 
-export interface FormFieldProps {
-    formValue: TextAreaStore["formValue"] | InputStore["formValue"];
-    shouldValidate: boolean;
-    isTouched: boolean;
-    isError: boolean;
-    clear: () => void;
-    reset: () => void;
-    onSubmit?: () => void;
-}
-
-interface InitProps<T> {
-    fields: FormStore<T>["fields"];
-    touchHook?: FormStore<T>["_touchHook"];
-    onSubmit?: () => void;
-}
 
 export default class FormStore<T> {
     constructor(props: InitProps<T>) {
@@ -32,15 +18,15 @@ export default class FormStore<T> {
     @observable private _touchHook?: (change: IValueDidChange<boolean>) => void;
     @observable submit: () => void;
 
-    @computed get data(): { [P in keyof T]: FormFieldProps["formValue"] } {
+    @computed get data(): { [P in keyof T]: FormIntegrationProps["formValue"] } {
         return <{ [P in keyof T]: any }>Object.entries(this.fields).reduce((data, [key, field]) => {
-            data[key] = (<FormFieldProps>field).formValue;
+            data[key] = (<FormIntegrationProps>field).formValue;
             return data;
         }, {})
     };
 
-    @computed private get _fields(): Array<FormFieldProps> {
-        return Object.keys(this.fields).map((key) => <FormFieldProps>this.fields[key])
+    @computed private get _fields(): Array<FormIntegrationProps> {
+        return Object.keys(this.fields).map((key) => <FormIntegrationProps>this.fields[key])
     }
 
     @computed get isTouched(): boolean  {

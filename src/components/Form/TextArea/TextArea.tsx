@@ -2,27 +2,24 @@ import React, { Component } from "react";
 import Scrollbars from "react-custom-scrollbars";
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
-import bem from "../../../utils/bem";
 
-import { ComponentProps, TextAreaTheme } from "./TextArea.types";
+import FormItem from "components/Form/FormItem/FormItem";
+import bem from "utils/bem";
+
+import TextAreaStore from "./TextArea.store";
 
 import styles from "./form_textarea.scss";
 
-export { TextAreaTheme } from "./TextArea.types";
 
 @observer
-export default class TextArea extends Component<ComponentProps> {
-    static defaultProps = {
-        theme: TextAreaTheme.CV_MAIL
-    };
-
+export default class TextArea extends Component<ViewOf<TextAreaStore> & HasClassName> {
     componentDidMount() {
         setTimeout(this.props.model.init, 0);
     }
 
     getClassName = (className: string) =>
         bem(className, {
-            theme: this.props.theme,
+            theme: this.props.model.theme,
             isReadOnly: this.props.model.isReadOnly,
             isDisabled: this.props.model.isDisabled,
             isError: this.props.model.shouldDisplayError,
@@ -30,25 +27,14 @@ export default class TextArea extends Component<ComponentProps> {
         });
 
     render() {
-        const { model } = this.props;
-        if (!model.shouldDisplayed) {
-            return null;
-        }
+        const { className, model } = this.props;
         return (
-            <div className={this.getClassName(styles.container)}>
-                {this.renderLabel()}
+            <FormItem className={className} model={model}>
                 {this.renderField()}
-                {this.renderError()}
-            </div>
+            </FormItem>
         );
     }
 
-    renderLabel = () =>
-        this.props.model.label && (
-            <label className={this.getClassName(styles.label)}>
-                {this.props.model.label}
-            </label>
-        );
 
     renderField = () => (
         <div
@@ -73,10 +59,4 @@ export default class TextArea extends Component<ComponentProps> {
         </div>
     );
 
-    renderError = () =>
-        this.props.model.shouldDisplayError && (
-            <span className={this.getClassName(styles.error)}>
-                {this.props.model.error}
-            </span>
-        );
 }
