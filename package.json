@@ -17,7 +17,7 @@
     "@storybook/node-logger": "^5.1.10",
     "@types/jest": "^24.0.16",
     "@types/storybook__react": "^4.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-plugin-macros": "^2.6.1",
     "get-optional": "^2.0.3",
     "identity-obj-proxy": "^3.0.0",
